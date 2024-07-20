@@ -3,10 +3,12 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:spotify_clone/common/helpers/is_dark_mode.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_images.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 import 'package:spotify_clone/core/configs/theme/app_colors.dart';
+import 'package:spotify_clone/presentation/auth/pages/signup_or_signin.dart';
 import 'package:spotify_clone/presentation/choose_mode/bloc/theme_cubit.dart';
 
 class ChooseModePage extends StatelessWidget {
@@ -51,9 +53,11 @@ class ChooseModePage extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            if (!context.isDarkMode) return;
+
                             context
                                 .read<ThemeCubit>()
-                                .updateTheme(ThemeMode.dark);
+                                .updateTheme(ThemeMode.light);
                           },
                           child: ClipOval(
                             child: BackdropFilter(
@@ -90,6 +94,8 @@ class ChooseModePage extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () {
+                            if (context.isDarkMode) return;
+
                             context
                                 .read<ThemeCubit>()
                                 .updateTheme(ThemeMode.dark);
@@ -127,7 +133,17 @@ class ChooseModePage extends StatelessWidget {
                   ],
                 ),
                 const SizedBox(height: 50),
-                BasicAppButton(onPressed: () {}, title: "Continue"),
+                BasicAppButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SignupOrSigninPage(),
+                      ),
+                    );
+                  },
+                  title: "Continue",
+                ),
               ],
             ),
           ),
