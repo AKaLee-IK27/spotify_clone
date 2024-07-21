@@ -21,6 +21,22 @@ class AppTheme {
         ),
       ),
     ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.transparent,
+      contentPadding: const EdgeInsets.all(30),
+       hintStyle: const TextStyle(
+        color: Color(0xff383838),
+        fontWeight: FontWeight.w500,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.black,
+          width: 0.4,
+        ),
+      ),
+    ),
   );
 
   static final darkTheme = ThemeData(
@@ -39,6 +55,22 @@ class AppTheme {
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
+        ),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      filled: true,
+      fillColor: Colors.transparent,
+      contentPadding: const EdgeInsets.all(30),
+      hintStyle: const TextStyle(
+        color: Color(0xffA7A7A7),
+        fontWeight: FontWeight.w500,
+      ),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(30),
+        borderSide: const BorderSide(
+          color: Colors.white,
+          width: 0.4,
         ),
       ),
     ),
