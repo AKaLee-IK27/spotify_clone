@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/basic_app_bar.dart';
+import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
 
 class SignupPage extends StatelessWidget {
@@ -9,24 +10,27 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: const SignInText(),
       appBar: BasicAppBar(
         title: SvgPicture.asset(
           AppVectors.logo,
           height: 40,
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            RegisterText(),
-            SizedBox(height: 50),
-            FullNameField(),
-            SizedBox(height: 20),
-            EmailField(),
-            SizedBox(height: 20),
-            PasswordField(),
+            const RegisterText(),
+            const SizedBox(height: 50),
+            const FullNameField(),
+            const SizedBox(height: 20),
+            const EmailField(),
+            const SizedBox(height: 20),
+            const PasswordField(),
+            const SizedBox(height: 20),
+            BasicAppButton(title: "Create Account", onPressed: () {}),
           ],
         ),
       ),
@@ -45,6 +49,41 @@ class RegisterText extends StatelessWidget {
       style: TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 25,
+      ),
+    );
+  }
+}
+
+class SignInText extends StatelessWidget {
+  const SignInText({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Already have an account?',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+          TextButton(
+            onPressed: () {},
+            child: const Text(
+              "Sign in",
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
