@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBQivaMJfxodVhNQ10eosTJwYsRBp6fxJ4',
-    appId: '1:931098478141:android:1713b33bf6c83da5518c54',
+    appId: '1:931098478141:android:0b34e369b42f2a6c518c54',
     messagingSenderId: '931098478141',
     projectId: 'spotify17',
     storageBucket: 'spotify17.appspot.com',
@@ -83,4 +83,5 @@ class DefaultFirebaseOptions {
     authDomain: 'spotify17.firebaseapp.com',
     storageBucket: 'spotify17.appspot.com',
   );
+
 }
