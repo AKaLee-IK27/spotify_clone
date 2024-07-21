@@ -10,7 +10,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: const SignInText(),
+      bottomNavigationBar: _signInText(),
       appBar: BasicAppBar(
         title: SvgPicture.asset(
           AppVectors.logo,
@@ -22,7 +22,7 @@ class SignupPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const RegisterText(),
+            _registerText(),
             const SizedBox(height: 50),
             const FullNameField(),
             const SizedBox(height: 20),
@@ -36,13 +36,8 @@ class SignupPage extends StatelessWidget {
       ),
     );
   }
-}
 
-class RegisterText extends StatelessWidget {
-  const RegisterText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _registerText() {
     return const Text(
       'Register',
       textAlign: TextAlign.center,
@@ -52,13 +47,8 @@ class RegisterText extends StatelessWidget {
       ),
     );
   }
-}
 
-class SignInText extends StatelessWidget {
-  const SignInText({super.key});
-
-  @override
-  Widget build(BuildContext context) {
+  Widget _signInText() {
     return Padding(
       padding: const EdgeInsets.only(bottom: 30),
       child: Row(
