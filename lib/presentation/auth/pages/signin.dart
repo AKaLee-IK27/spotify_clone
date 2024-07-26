@@ -3,10 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:spotify_clone/common/widgets/appbar/basic_app_bar.dart';
 import 'package:spotify_clone/common/widgets/button/basic_app_button.dart';
 import 'package:spotify_clone/core/configs/assets/app_vectors.dart';
+import 'package:spotify_clone/data/models/auth/signin_user_request.dart';
+import 'package:spotify_clone/domain/usecases/auth/signin.dart';
 import 'package:spotify_clone/presentation/auth/pages/signup.dart';
+import 'package:spotify_clone/presentation/root/pages/root.dart';
+import 'package:spotify_clone/service_locator.dart';
 
 class SigninPage extends StatelessWidget {
-  const SigninPage({super.key});
+  SigninPage({super.key});
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -18,19 +25,45 @@ class SigninPage extends StatelessWidget {
           height: 40,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            _signinText(),
-            const SizedBox(height: 50),
-            _userNameOrEmailField(context),
-            const SizedBox(height: 20),
-            _passwordField(context),
-            const SizedBox(height: 20),
-            BasicAppButton(title: "Create Account", onPressed: () {}),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              _signinText(),
+              const SizedBox(height: 50),
+              _userNameOrEmailField(context),
+              const SizedBox(height: 20),
+              _passwordField(context),
+              const SizedBox(height: 20),
+              BasicAppButton(
+                  title: "Sign In",
+                  onPressed: () async {
+                    var result = await sl<SigninUseCase>().call(
+                      params: SigninUserReq(
+                        email: _emailController.text,
+                        password: _passwordController.text,
+                      ),
+                    );
+                    result.fold(
+                      (l) {
+                        var snackBar = SnackBar(content: Text(l));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                      (r) {
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (BuildContext context) =>
+                                  const RootPage(),
+                            ),
+                            (route) => false);
+                      },
+                    );
+                  }),
+            ],
+          ),
         ),
       ),
     );
@@ -75,7 +108,7 @@ class SigninPage extends StatelessWidget {
               style: TextStyle(
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
-                color: Colors.green,
+                color: Color.fromRGBO(76, 175, 80, 1),
               ),
             ),
           ),
@@ -86,14 +119,15 @@ class SigninPage extends StatelessWidget {
 
   Widget _userNameOrEmailField(BuildContext context) {
     return TextField(
-      decoration:
-          const InputDecoration(hintText: 'Enter your username or email')
-              .applyDefaults(Theme.of(context).inputDecorationTheme),
+      controller: _emailController,
+      decoration: const InputDecoration(hintText: 'Enter your email')
+          .applyDefaults(Theme.of(context).inputDecorationTheme),
     );
   }
 
   Widget _passwordField(BuildContext context) {
     return TextField(
+      controller: _passwordController,
       decoration: const InputDecoration(hintText: 'Password')
           .applyDefaults(Theme.of(context).inputDecorationTheme),
     );

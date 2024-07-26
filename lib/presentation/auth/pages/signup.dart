@@ -26,9 +26,9 @@ class SignupPage extends StatelessWidget {
           height: 40,
         ),
       ),
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
-        child: SingleChildScrollView(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 50, horizontal: 30),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
@@ -44,7 +44,7 @@ class SignupPage extends StatelessWidget {
                 title: "Create Account",
                 onPressed: () async {
                   var result = await sl<SignupUseCase>().call(
-                    params: CreateUserRequest(
+                    params: CreateUserReq(
                       fullName: _fullNameController.text,
                       email: _emailController.text,
                       password: _passwordController.text,
@@ -103,7 +103,7 @@ class SignupPage extends StatelessWidget {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const SigninPage(),
+                  builder: (context) => SigninPage(),
                 ),
               );
             },

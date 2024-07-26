@@ -1,10 +1,8 @@
-class CreateUserReq {
-  final String fullName;
+class SigninUserReq {
   final String email;
   final String password;
 
-  CreateUserReq({
-    required this.fullName,
+  SigninUserReq({
     required this.email,
     required this.password,
   });
